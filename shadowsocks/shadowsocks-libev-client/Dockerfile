@@ -33,7 +33,7 @@ RUN set -ex \
     tzdata \
 # Set timezone and user
 && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
-&& echo ${TZ} > /etc/timezone \
+# && echo ${TZ} > /etc/timezone \
 # Get source code 
 && git clone https://github.com/shadowsocks/shadowsocks-libev.git -b "v${VER}" --depth=1 --recursive /tmp/repo \
 # Build & install
@@ -41,7 +41,7 @@ RUN set -ex \
 && ./autogen.sh \
 && ./configure --prefix=/usr --disable-documentation \
 && make install \
-&& apk del .build-deps tzdata\
+&& apk del .build-deps\
 # Runtime dependencies setup
 && apk add --no-cache \
   rng-tools \
