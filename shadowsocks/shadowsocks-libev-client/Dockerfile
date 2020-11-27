@@ -30,10 +30,6 @@ RUN set -ex \
     mbedtls-dev \
     pcre-dev \
     git \
-    tzdata \
-# Set timezone and user
-&& ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
-# && echo ${TZ} > /etc/timezone \
 # Get source code 
 && git clone https://github.com/shadowsocks/shadowsocks-libev.git -b "v${VER}" --depth=1 --recursive /tmp/repo \
 # Build & install
@@ -48,6 +44,10 @@ RUN set -ex \
   $(scanelf --needed --nobanner /usr/bin/ss-* \
   | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
   | sort -u) \
+  tzdata \
+# Set timezone and user
+&& ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+&& echo ${TZ} > /etc/timezone \
 # Cleanup
 && rm -rf /tmp/repo \
 		  /etc/service \
