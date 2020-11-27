@@ -8,7 +8,7 @@ docker run -d \
   --restart always \
   -e PASSWORD=admin \
   -p 1986:1986 \
-  bigkylin/shadowsocks-libev-client
+  bigkylin/shadowsocks-libev-client:3.3.5
 ```
 环境变量（-e）
 - `SERVER_ADDR`: Shadowsocks服务器地址
